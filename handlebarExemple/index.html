@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <script src="handlebars-v4.1.0.js"></script>
+</head>
+
+<body>
+
+    <div id="dataderk"></div>
+    <div id="quotedata"></div>
+
+
+    <script>
+        var myInfo = "<p>my name is {{name}},live in {{street}} ,{{state}}";
+        var template = Handlebars.compile(myInfo);
+
+        var data = template({
+            name: "saif",
+            street: "mourouj",
+            state: "ariana"
+        });
+
+        document.getElementById('dataderk').innerHTML += data;
+    </script>
+    <script id="quotes-template" type="text/x-handlebars-template">
+
+        <h3>Favorite {{name}} Quotes {{#if puf}}
+            <ol>
+                {{#each quotes}}
+                <li>{{quote}}</li>
+                {{/each}}
+            </ol>
+            {{/if}}
+        </h3>
+
+        {{{yogistache}}}
+
+
+    </script>
+
+
+
+
+    <script>
+        var quoteInfo = document.getElementById('quotes-template').innerHTML;
+        var template = Handlebars.compile(quoteInfo);
+
+        var quotedata = template({
+
+            name: "saif",
+            quotes: [{
+                quote: "hhhhhhhh"
+            }, {
+                quote: "hhhgggggg"
+            }, {
+                quote: "kkkkkk"
+            }],
+            yogistache: '<li>saif is start to explane the handlebars for you gyus</li>',
+
+            puf: true
+        });
+
+
+        Handlebars.registerHelper("makeLink", function(text, url) {
+
+            text = Handlebars.Utils.escapeExpression(text);
+            url = Handlebars.Utils.escapeExpression(url);
+            var theLink = '<a href="' + url + '">' + text + '<a/>';
+
+            return new Handlebars.SafeString(theLink);
+        });
+
+
+        document.getElementById('quotedata').innerHTML += quotedata;
+    </script>
+</body>
+
+</html>
